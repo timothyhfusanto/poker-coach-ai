@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg:       #0a0a0a;
+  --surface:  #141414;
+  --surface2: #1c1c1c;
+  --border:   #222222;
+  --border2:  #333333;
+  --green:    #16a34a;
+  --green-hi: #22c55e;
+  --green-bg: #052e16;
+  --red:      #dc2626;
+  --red-hi:   #ef4444;
+  --red-bg:   #450a0a;
+  --gold:     #c9943a;
+  --gold-hi:  #d4af37;
+  --text:     #e8e2d6;
+  --text-2:   #666666;
+  --text-3:   #2d2d2d;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(22, 163, 74, 0.3);
+  color: #fff;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+/* ── Inputs ── */
+.input-base {
+  width: 100%;
+  background: #0f0f0f;
+  border: 1px solid #222;
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  transition: border-color 0.12s;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input-base::placeholder { color: #2d2d2d; }
+.input-base:hover        { border-color: #333; }
+.input-base:focus        { border-color: #16a34a; }
+.input-base:disabled     { opacity: 0.25; cursor: not-allowed; }
+.input-base.error        { border-color: #dc2626; }
+
+select.input-base {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+select.input-base option { background: #141414; color: var(--text); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes growWidth {
+  from { width: 0%; }
+  to   { width: var(--target-width); }
+}
+
+@keyframes floatCards {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.65); }
+  55%  { opacity: 1; transform: scale(1.06); }
+  78%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+.animate-fade-up    { animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in    { animation: fadeIn 0.3s ease both; }
+.animate-grow-width { animation: growWidth 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-float      { animation: floatCards 4s ease-in-out infinite; }
+.animate-bounce-in  { animation: bounceIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Felt table background ── */
+.felt-bg {
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(ellipse 800px 400px at 65% 50%, rgba(22, 163, 74, 0.07) 0%, transparent 65%),
+    radial-gradient(circle, #131313 1px, transparent 1px);
+  background-size: auto, 24px 24px;
 }
